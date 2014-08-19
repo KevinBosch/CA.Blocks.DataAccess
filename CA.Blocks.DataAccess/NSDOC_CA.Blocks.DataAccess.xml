@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<doc>
+	<members>
+		<member name="R:Project">
+			<summary>About the CA.Blocks.DataAccess Assembly</summary>
+		</member>
+		<member name="N:CA.Blocks.DataAccess">
+			<summary>
+        <p>
+          Implementing data access functionality is a core activity of most developers working with the .NET Framework.
+          In a tied architecture the data access layers  are an essential part of applications. This block (the CA.Blocks.DataAccess assembly)
+          creates an abstract data access layer which can use used as a base for accessing those databases in a convenient and
+          standardized way. The block is made up of a Core DataAccess Class and then specializations for specific providers
+          such as SQL server and generic OLEDB implementation.  It is designed to be the base class through which
+          a standardized DataAccess Layer can be built.
+        </p>
+        <p>
+          <img src="CA.Blocks.DataAccess.png" />
+        </p>
+      </summary>
+    </member>
+	</members>
+</doc>

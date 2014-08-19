@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CA.Blocks.DataAccess.DataAccessCore">
+    <Position X="4.5" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAYAAAAAQAACCAABAgAEAAEAAEIAgJACMAAAAAAIA=</HashCode>
+      <FileName>DataAccessCore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CA.Blocks.DataAccess.OledbDataAccess">
+    <Position X="6.75" Y="7.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAAAAAAAAAAAAAAAAAAAAAIAAAAAYAAAAAEAA=</HashCode>
+      <FileName>OledbDataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CA.Blocks.DataAccess.SqlServerDataAccess">
+    <Position X="1.5" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACkDAUAiAASAEoIoAAAGAAAIQACIAUgABYAEAIABAA=</HashCode>
+      <FileName>SqlServerDataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CA.Blocks.DataAccess.DataHelper">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIgBAAQAEAAAIAABRBAACDAAIMAAEiAgAAUAEAAgABI=</HashCode>
+      <FileName>DataHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

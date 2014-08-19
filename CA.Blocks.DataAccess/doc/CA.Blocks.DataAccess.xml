@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CA.Blocks.DataAccess</name>
+    </assembly>
+    <members>
+        <member name="T:CA.Blocks.DataAccess.DataAccessCore">
+            <summary>
+            <para>
+            This class provides the abstract implementation for the Code Associate Data Access Block.  
+            The Abstract implementation is build upon utilizing common System.Data methods and interfacing out the Specific 
+            DBCommand using the IDbCommand interface.  In doing this all specializations built on top of this class will behave 
+            in the same manor. This class is abstract and cannot be created. 
+            </para>
+            </summary>
+            <remarks>
+            <p>source code:</p>
+            <code outlining="true" source="..\CANC\Blocks\DataAccess\DataAccessCore.cs" lang="cs"/>
+            </remarks>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataAccessCore.ResolveConnectionStringValue(System.String)">
+             <summary>
+             This method can be overridden to provide additional processing on the connection string 
+             property. This is useful if for example you database is specified by way of a relative 
+             directory which is no know at configuration time. For example accessing a Server path 
+             in an http context. 
+            </summary>
+             <remarks>
+             <example>
+             <p>Example override method using web running in a web enviroment</p>
+             <code outlining="true" lang="cs" >
+             if (connectionString.IndexOf("%MAPPATH%") > 0)
+             {
+                 string serverpath = System.Web.HttpContext.Current.Server.MapPath("");
+                 connectionString = connectionString.Replace("%MAPPATH%", serverpath);
+             }
+             </code>
+             </example>
+             </remarks>
+             <param name="connectionString"> the connection string as configured in the connectionStrings element of the config file</param>
+             <returns> the default method returns the connection string as stored in the application configuration file</returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataAccessCore.#ctor(System.String)">
+            <summary>
+            This is a protected constructor which must be called by the inheriting class, bu default it will get the configuration 
+            value stored in connectionStrings element of the configuration. This value can be overriden using the ResolveConnectionStringValue method. 
+            </summary>
+            <param name="dataServiceName"></param>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataAccessCore.WrapUp(System.Data.IDbConnection,System.Boolean)">
+            <summary>
+            The WrapUp procedure is called when completing a database  call. It will establish 
+            whether or not to close the connection pending the variable closeConnection which 
+            would have been passed back from the PrepCommand. The PrepCommand and WrapUp work 
+            in tandem when executing commands though this common class. 
+            </summary>
+            <param name="conn"></param>
+            <param name="closeConnection"></param>
+        </member>
+        <member name="T:CA.Blocks.DataAccess.DataHelper">
+            <summary>
+            This class is a helper class for dealing data values.  It is intended to be a static helper class only.
+            </summary>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRow(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an object retuning the .NET null value  in the event the data value is 
+            null in the DataRow.
+            </summary>
+            <param name="dr"> A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRow(System.Data.DataRow,System.Data.DataColumn)">
+            <summary>
+            Will get the data value from the row as an object retuning the .NET null value  in the event the data value is 
+            null in the DataRow.
+            </summary>
+            <param name="dr"> A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="column">The Column that belongs to the DataTable</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRow(System.Data.DataRow,System.Int32)">
+            <summary>
+            Will get the data value from the row as an object retuning the .NET null value  in the event the data value is 
+            null in the DataRow.
+            </summary>
+            <param name="dr"> A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="columnOrder">The order of the Column that belongs to the DataTable</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsString(System.Data.DataRow,System.String,System.Boolean)">
+            <summary>
+            Will get the data value from the row as a string. The return value will be set to either null or and empty string depending 
+            on the value of ReturnNullAsEmptyString  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName"> The Name of the Column in the DataRow </param>
+            <param name="returnNullAsEmptyString">Sets the attribute on how an empty string will be treated, it true it will return string.empty else it will return null. </param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsString(System.Data.DataRow,System.Int32,System.Boolean)">
+            <summary>
+            Will get the data value from the row as a string. The return value will be set to either null or and empty string depending 
+            on the value of ReturnNullAsEmptyString  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="columnOrder"> The order of the Column in the DataRow </param>
+            <param name="returnNullAsEmptyString">Sets the attribute on how an empty string will be treated, it true it will return string.empty else it will return null. </param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsString(System.Data.DataRow,System.String)">
+            <summary>
+            calls GetValueFromRowAsString with the given DataRow and ColumnName and used the default value of false for ReturnNullAsEmptyString
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow </param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullInt(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable int. The return value will be set to either null or the int value
+            This procedure assumes that the data is an integer, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullInt(System.Data.DataRow,System.Data.DataColumn)">
+            <summary>
+            Will get the data value from the row as a nullable int. The return value will be set to either null or the int value
+            This procedure assumes that the data is an integer, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="column">The Column inside the datarow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsInt(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an int. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an integer, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsInt(System.Data.DataRow,System.Data.DataColumn)">
+            <summary>
+            Will get the data value from the row as an int. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an integer, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="column">The Column which is part of the data row</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullDecimal(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable Decimal. The return value will be set to either null or the Decimal value
+            This procedure assumes that the data is an Decimaleger, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsDecimal(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an Decimal. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an Decimaleger, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullDouble(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable Double. The return value will be set to either null or the Double value
+            This procedure assumes that the data is an Double, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsDouble(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an Double. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an Double, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullLong(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable long. The return value will be set to either null or the long value
+            This procedure assumes that the data is an long, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullLong(System.Data.DataRow,System.Data.DataColumn)">
+            <summary>
+            Will get the data value from the row as a nullable long. The return value will be set to either null or the long value
+            This procedure assumes that the data is an long, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="column">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsLong(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an long. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an long, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsLong(System.Data.DataRow,System.Data.DataColumn)">
+            <summary>
+            Will get the data value from the row as an long. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an long, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="column">The Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsBool(System.Data.DataRow,System.String)">
+            <summary>
+            Will get a the data value from the data row as a bool. If a DB Null is found then throw a NullException
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsBool(System.Data.DataRow,System.String,System.Boolean)">
+            <summary>
+            Will get a the data value from the data row as a bool. If a DB Null is found then it will return the default bool value defined in DefaultReturnValueIfNull
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <param name="defaultReturnValueIfNull"> The default value in the event the DB col is null</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullShort(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable short. The return value will be set to either null or the short value
+            This procedure assumes that the data is a short, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsShort(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an short. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an short, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullSbyte(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable sbyte. The return value will be set to either null or the sbyte value
+            This procedure assumes that the data is a sbyte, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsSbyte(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an sbyte. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an sbyte, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullByte(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable short. The return value will be set to either null or the short value
+            This procedure assumes that the data is a short, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsByte(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an byte. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an byte, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullDateTime(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable short. The return value will be set to either null or the short value
+            This procedure assumes that the data is a short, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsDateTime(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as an DateTime. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is an DateTime, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsGuid(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a Guid. If the value is null an <see cref="T:System.ArgumentNullException"/> will be thrown
+            This procedure assumes that the data is a Guid, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullGuid(System.Data.DataRow,System.String)">
+            <summary>
+            Will get the data value from the row as a nullable Guid. The return value will be set to either null or the Guid value
+            This procedure assumes that the data is a Guid, if not a cast exception will be thrown.  
+            </summary>
+            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
+            <param name="sColumnName">The Name of the Column in the DataRow</param>
+            <returns></returns>
+        </member>
+        <member name="T:CA.Blocks.DataAccess.OledbDataAccess">
+            <summary>
+            Provides a Oledb implementation for DataAccessCore. This block can be used to connect to any Oledb exposed database. 
+            </summary>
+            <remarks>
+            <p>source code:</p>
+            <code outlining="true" source="..\CANC\Blocks\DataAccess\OledbDataAccess.cs" lang="cs"/> 
+            </remarks>
+        </member>
+        <member name="M:CA.Blocks.DataAccess.OledbDataAccess.AddInputParamCommand(System.Data.OleDb.OleDbCommand,System.String,System.Object,System.Data.DbType,System.Int32)">
+            <summary>
+            Adds a parameter to a pre existing stored procedure command.
+            </summary>
+            <param name="cmd"> The SQL command for which the parameter should be added</param>
+            <param name="strParameterName">The Parameter Name. note the underlying oledb parameter
+            must match the order of the parameter in the command this is constratint on oledb provider
+             http://support.microsoft.com/default.aspx?scid=kb;en-us;316744 </param>
+            <param name="objParameterValue"> The value of the Parameter</param>
+            <param name="odbType"> the type of the parameter</param>
+            <param name="maxParamSize"> The max size of the parameter </param>
+            <returns>The sql parameter just added</returns>
+        </member>
+        <member name="T:CA.Blocks.DataAccess.SqlServerDataAccess">
+            <summary>
+            Provides a SQL server implementation for DataAccessCore
+            </summary>
+            <remarks>
+            <p>source code:</p>
+            <code outlining="true" source="..\CANC\Blocks\DataAccess\SqlServerDataAccess.cs" lang="cs"/> 
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CA.Blocks.DataAccess.SqlServerDataAccess.GetDBType(System.Type)" -->
+    </members>
+</doc>
