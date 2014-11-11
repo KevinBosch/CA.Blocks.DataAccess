@@ -16,6 +16,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using System.Text;
 
 namespace CA.Blocks.DataAccess
 {
@@ -37,11 +38,28 @@ namespace CA.Blocks.DataAccess
 
 		}
 
+        protected virtual string GetConnectionContext()
+        {
+            return null;
+        }
+
+        public void SetCommandContext(SqlConnection sqlConnection)
+        {
+            string context = GetConnectionContext();
+            if (!String.IsNullOrWhiteSpace(context))
+            {
+                var cmd = CreateTextCommand("SET CONTEXT_INFO @AppContext");
+                AddInputParamCommandAsBinary(cmd, "@AppContext", Encoding.ASCII.GetBytes(context));
+                cmd.Connection = sqlConnection;
+                cmd.ExecuteNonQuery();
+            }
+        }
 
 	    protected override bool PrepCommand(IDbCommand cmd)
 		{
 			SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             sqlConnection.Open();
+            SetCommandContext(sqlConnection);
             cmd.Connection = sqlConnection;
 			return true;
 		}
@@ -196,6 +214,12 @@ namespace CA.Blocks.DataAccess
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.TinyInt, 1);
         }
+
+        protected SqlParameter AddInputParamCommandAsBinary(SqlCommand cmd, string strParameterName, byte[] objParameterValue)
+        {
+            return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.VarBinary, -1);
+        }
+
 
         protected SqlParameter AddInputParamCommandAsBit(SqlCommand cmd, string strParameterName, bool objParameterValue)
         {
