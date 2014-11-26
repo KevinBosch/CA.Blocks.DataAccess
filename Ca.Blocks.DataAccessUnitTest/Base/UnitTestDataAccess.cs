@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using CA.Blocks.DataAccess;
+using CA.Blocks.DataAccess.Paging;
 
 namespace CA.Blocks.DataAccessUnitTest.Base
 {
@@ -37,6 +38,13 @@ namespace CA.Blocks.DataAccessUnitTest.Base
             SqlCommand cmd = CreateTextCommand(query);
             return base.ExecuteDataTable(cmd);
         }
+
+        public DataTable ExecuteDataTable(string query, PagingRequest pq)
+        {
+            SqlCommand cmd = CreateTextCommand(query);
+            return base.ExecuteDataTable(cmd, pq);
+        }
+
 
         public DataRow ExecuteDataRow(string query)
         {

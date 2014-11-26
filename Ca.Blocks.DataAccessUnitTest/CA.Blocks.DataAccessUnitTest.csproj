@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\UnitTestDataAccess.cs" />
+    <Compile Include="SQLServer\SqlServerDataAccessPagingTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessContextTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessExecuteObjectListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

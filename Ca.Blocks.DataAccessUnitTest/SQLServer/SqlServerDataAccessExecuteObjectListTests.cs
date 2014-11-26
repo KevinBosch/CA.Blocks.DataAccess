@@ -28,7 +28,6 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
                 string s = o.name;
                 Trace.WriteLine(s);
             }
-
         }
 
         // This will use the same dynamic function except it adds a little more work in converting the 

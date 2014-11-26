@@ -17,6 +17,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.ComponentModel;
 using System.Text;
+using CA.Blocks.DataAccess.Paging;
 
 namespace CA.Blocks.DataAccess
 {
@@ -458,5 +459,43 @@ namespace CA.Blocks.DataAccess
         #endregion SQL Bulk Update Methods
 
 
-	}
+        #region 
+
+        public DataTable ExecuteDataTable(SqlCommand cmd, PagingRequest page)
+        {
+            // this is sql server specific and only for direct quries
+
+            string sortOrder = page.GetOrderBy();
+            string sqlSelect = string.Format(" ROW_NUMBER() Over (Order By {0}) As RowNumber, ", sortOrder);
+            cmd.CommandText = WrapPagingQuery(cmd.CommandText, sqlSelect);
+            AddInputParamCommandAsInt(cmd, "@PagingRowNumberFrom", page.Skip + 1);
+            AddInputParamCommandAsInt(cmd, "@PagingRowNumberTo", page.Skip + page.Take);
+            return ExecuteDataTable(cmd);
+        }
+
+        protected string WrapPagingQuery(string sourceQuery, string orderOver)
+        {
+            sourceQuery = sourceQuery.Trim();
+            if (sourceQuery.StartsWith("Select", StringComparison.CurrentCultureIgnoreCase))
+            {
+                sourceQuery = "Select " + orderOver + sourceQuery.Substring(6);
+                string pagingWrapperSQL = @"With PagingWrapper As 
+                            (
+                              {0}
+                            ) 
+                        Select PagingWrapper.*
+                        from PagingWrapper
+                        Where PagingWrapper.RowNumber Between @PagingRowNumberFrom AND @PagingRowNumberTo
+                        Order By PagingWrapper.RowNumber Asc";
+
+                return string.Format(pagingWrapperSQL, sourceQuery);
+            }
+            else
+            {
+                throw new ApplicationException("To Execute ExecuteDataTable using a PagingRequest the Command must be text query and start with 'Select'   ");
+            }
+        }
+
+        #endregion 
+    }
 }

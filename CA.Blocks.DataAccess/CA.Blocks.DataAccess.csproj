@@ -106,10 +106,13 @@
     <Compile Include="OledbDataAccess.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Paging\PagingRequest.cs" />
+    <Compile Include="Paging\Sort.cs" />
     <Compile Include="SqlServerDataAccess.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Translator\BaseDb2ObjectTranslator.cs" />
+    <Compile Include="Translator\Basic\StringTranslator.cs" />
     <Compile Include="Translator\DatabaseToObjectMapping.cs" />
     <Compile Include="Translator\DynamicDbRow2ObjectTranslator.cs" />
     <Compile Include="Translator\SimpleDbReader2ObjectTranslator.cs" />

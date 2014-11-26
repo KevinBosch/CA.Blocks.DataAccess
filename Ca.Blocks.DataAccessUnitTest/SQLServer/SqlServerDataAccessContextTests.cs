@@ -7,6 +7,7 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
     // Shows how to pass a Context to SQL on each execute  for unit testing this is simply a random guid
     // in most cases this will be the security context like user name. This is usefull incase you want to 
     // do auditing, however the using the 
+
     internal class ContextUnitTestDataAccess : UnitTestDataAccess
     {
         private readonly string _randomContext = Guid.NewGuid().ToString();
@@ -22,7 +23,7 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
         {
             return _randomContext;
         }
-        
+
         public string GetContextFromDataBase()
         {
             var cmd = CreateTextCommand("Select Cast(CONTEXT_INFO() as varchar(100)) as CONTEXTINFO");
@@ -32,8 +33,9 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
     }
 
 
+
     [TestFixture]
-    public class SqlServerDataAccessContextTests
+    public partial class SqlServerDataAccessContextTests
     {
         [Test]
         public void ContextDataTest()
