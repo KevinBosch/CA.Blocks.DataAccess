@@ -58,5 +58,16 @@ namespace CA.Blocks.DataAccessUnitTest.Base
             base.ExecuteNonQuery(cmd); 
         }
 
+        //  This is done for unit testing to expose all the protected methods as public
+        public new SqlCommand CreateTextCommand(string query)
+        {
+            return base.CreateTextCommand(query);
+        }
+
+        public DataTable ExecuteDataTable(SqlCommand cmd )
+        {
+            return base.ExecuteDataTable(cmd);
+        }
+
     }
 }

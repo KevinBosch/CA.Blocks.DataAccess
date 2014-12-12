@@ -458,7 +458,6 @@ namespace CA.Blocks.DataAccess
         }
         #endregion SQL Bulk Update Methods
 
-
         #region 
 
         public DataTable ExecuteDataTable(SqlCommand cmd, PagingRequest page)

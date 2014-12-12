@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Paging\PagingRequest.cs" />
     <Compile Include="Paging\Sort.cs" />
+    <Compile Include="SqlServerParameterExtensions.cs" />
     <Compile Include="SqlServerDataAccess.cs">
       <SubType>Code</SubType>
     </Compile>

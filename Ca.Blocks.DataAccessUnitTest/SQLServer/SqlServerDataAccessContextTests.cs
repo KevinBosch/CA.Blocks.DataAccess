@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using CA.Blocks.DataAccessUnitTest.Base;
 using NUnit.Framework;
 
@@ -27,9 +28,9 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
         public string GetContextFromDataBase()
         {
             var cmd = CreateTextCommand("Select Cast(CONTEXT_INFO() as varchar(100)) as CONTEXTINFO");
-            return ExecuteScalar(cmd).ToString();
+            string result = ExecuteScalar(cmd).ToString();
+            return result.Replace("\0", string.Empty);
         }
-
     }
 
 
