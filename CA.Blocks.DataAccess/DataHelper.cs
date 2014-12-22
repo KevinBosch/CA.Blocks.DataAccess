@@ -520,5 +520,13 @@ namespace CA.Blocks.DataAccess
         }
 
 
+        [DebuggerStepThrough]
+        public static byte[] GetValueFromRowAsBinary(DataRow dr, string sColumnName)
+        {
+            return (byte[])GetValueFromRow(dr, sColumnName);
+        }
+
+
+
     }
 }

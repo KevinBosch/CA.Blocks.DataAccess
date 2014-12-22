@@ -113,6 +113,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Translator\BaseDb2ObjectTranslator.cs" />
+    <Compile Include="Translator\Basic\ByteTranslator.cs" />
+    <Compile Include="Translator\Basic\ShortTranslator.cs" />
+    <Compile Include="Translator\Basic\IntTranslator.cs" />
+    <Compile Include="Translator\Basic\BinaryTranslator.cs" />
+    <Compile Include="Translator\Basic\DateTimeTranslator.cs" />
+    <Compile Include="Translator\Basic\CharTranslator.cs" />
+    <Compile Include="Translator\Basic\LongTranslator.cs" />
     <Compile Include="Translator\Basic\StringTranslator.cs" />
     <Compile Include="Translator\DatabaseToObjectMapping.cs" />
     <Compile Include="Translator\DynamicDbRow2ObjectTranslator.cs" />

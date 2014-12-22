@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Data.SqlClient;
+using System.Diagnostics;
 using CA.Blocks.DataAccess.Translator;
 using CA.Blocks.DataAccessUnitTest.Base;
 using NUnit.Framework;
@@ -15,14 +16,15 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
     // Shows how to use the ExecuteObjectList to get a list of dyanmic objects from a SQL query.
     // This is handy for very quick development
     [TestFixture]
-    public class SqlServerDataAccessExecuteObjectListTests
+    public class SqlServerDataAccessExecuteObjectListTests : UnitTestDataAccess
     {
+
+
         [Test]
         public void GetDataAsDyanmicList()
         {
-            var target = new UnitTestDataAccess();
-
-            var result = target.ExecuteObjectList("Select * from sysobjects");
+            SqlCommand cmd = CreateTextCommand("Select * from sysobjects");
+            var result = ExecuteObjectList(cmd);
             foreach (var o in result)
             {
                 string s = o.name;
@@ -35,11 +37,10 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
         [Test]
         public void GetDataAsFixedTypeFromDynamic()
         {
-            var target = new UnitTestDataAccess();
-            // Note we only support 1-1 mapping for now
+              // Note we only support 1-1 mapping for now
             var t = new BaseDb2ObjectTranslator<Sysobjects>(); // <<-- need to have the ability to inject the map. 
-      
-            var result = t.Translate(target.ExecuteDataTable("Select * from sysobjects")); //<< inject a filter with parameters..
+            SqlCommand cmd = CreateTextCommand("Select * from sysobjects");
+            var result = t.Translate(ExecuteDataTable(cmd)); //<< inject a filter with parameters..
 
             foreach (var o in result)
             {

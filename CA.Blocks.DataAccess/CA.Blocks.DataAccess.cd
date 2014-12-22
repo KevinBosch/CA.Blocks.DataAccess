@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="CA.Blocks.DataAccess.DataAccessCore">
-    <Position X="4.5" Y="0.75" Width="2.75" />
+    <Position X="4.75" Y="1" Width="2.75" />
     <TypeIdentifier>
       <HashCode>CAAAYAAAAAQAACCAABAgAEAAEAAEIAgJACMAAAAAAIA=</HashCode>
       <FileName>DataAccessCore.cs</FileName>
@@ -15,16 +15,16 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CA.Blocks.DataAccess.SqlServerDataAccess">
-    <Position X="1.5" Y="7.25" Width="2.75" />
+    <Position X="1.5" Y="7.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AACkDAUAiAASAEoIoAAAGAAAIQACIAUgABYAEAIABAA=</HashCode>
+      <HashCode>AACkDAUAiAASAEqAoAEAGAgAIQACIAUhAB4AEAIABAA=</HashCode>
       <FileName>SqlServerDataAccess.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CA.Blocks.DataAccess.DataHelper">
     <Position X="0.5" Y="0.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AIgBAAQAEAAAIAABRBAACDAAIMAAEiAgAAUAEAAgABI=</HashCode>
+      <HashCode>AIgBCAQAEAAAIAABRBAACDAAIMAAEiEgAAUAEAAgABI=</HashCode>
       <FileName>DataHelper.cs</FileName>
     </TypeIdentifier>
   </Class>

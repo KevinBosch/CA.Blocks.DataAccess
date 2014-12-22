@@ -32,7 +32,7 @@ namespace CA.Blocks.DataAccess
 	{
 
         public const string FILTER_REPLACE_STRING = "/*##FILTER##*/";
-        public const string JOIN_REPLACE_STRING = "/*##JOIN##*/";
+        //public const string JOIN_REPLACE_STRING = "/*##JOIN##*/";
 
 		public SqlServerDataAccess(string connectionString) : base(connectionString) 
 		{
@@ -123,11 +123,12 @@ namespace CA.Blocks.DataAccess
             return CreateTextCommand(sql);
         }
 
+        /* Bad idea taking it out before it grows into a wild thing. 
         protected SqlCommand CreateTextCommand(string sqlTemplate, string mainFilter, string mainJoin)
         {
             string sql = sqlTemplate.Replace(JOIN_REPLACE_STRING, mainJoin);
             return CreateTextCommand(sql,mainFilter);
-        }
+        }*/
 
         protected SqlCommand CreateTableSelectCommand(string tableName, string filter)
         {
@@ -361,11 +362,11 @@ namespace CA.Blocks.DataAccess
         /// <summary>
         /// This is usefull when you dont know the sql datatype but you do know the physical type example is datatable
         /// DataColumn dc = ??
-        //  AddInputParamCommand(cmd, dc.ColumnName, dr[dc], GetDBType(dc.DataType), dc.MaxLength);
+        ///  AddInputParamCommand(cmd, dc.ColumnName, dr[dc], GetDBType(dc.DataType), dc.MaxLength);
         /// </summary>
         /// <param name="theType"></param>
         /// <returns></returns>
-        protected SqlDbType GetDBType(System.Type theType)
+        protected SqlDbType GetDBType(Type theType)
         {
             SqlParameter p1 = new SqlParameter();
             TypeConverter tc = TypeDescriptor.GetConverter(p1.DbType);
@@ -460,6 +461,7 @@ namespace CA.Blocks.DataAccess
 
         #region 
 
+        // With SQL 2012 we can use syntax OFFSET x ROWS FETCH NEXT y ROWS ONLY.. but this will only work with 2012. for now leave as is. 
         public DataTable ExecuteDataTable(SqlCommand cmd, PagingRequest page)
         {
             // this is sql server specific and only for direct quries

@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.ComponentModel;
 using System.Data.SqlClient;
 using CA.Blocks.DataAccess;
-using CA.Blocks.DataAccess.Paging;
 
 namespace CA.Blocks.DataAccessUnitTest.Base
 {
@@ -14,60 +12,61 @@ namespace CA.Blocks.DataAccessUnitTest.Base
          </configuration>
          */
     // this class exposes the internal workings so we can test
-    internal class UnitTestDataAccess : SqlServerDataAccess
+    public class UnitTestDataAccess : SqlServerDataAccess
     {
         public UnitTestDataAccess()
             : base("localsqlserverhost")
         {
         }
 
-        public dynamic ExecuteObject(string query)
+
+        private const string unitTestTableName = "CA_BLOCKS_UNITTEST_TEMP_TESTTABLE";
+        public const string UNIT_TEST_COL_NAME = "col";
+
+        protected string DropTestTableSQL()
         {
-            SqlCommand cmd = CreateTextCommand(query);
-            return base.ExecuteObject(cmd);
+            return
+                string.Format(
+                    "if exists (select * from sysobjects where xtype = 'U' and id = object_id(N'{0}')) begin drop table {0} end",
+                    unitTestTableName);
         }
 
-        public IList<dynamic> ExecuteObjectList(string query)
+        protected string CreateTestTable(string coltype)
         {
-            SqlCommand cmd = CreateTextCommand(query);
-            return base.ExecuteObjectList(cmd);
+            return
+                string.Format(
+                    "Create table {0} (id int identity(1,1), col {1} )",
+                    unitTestTableName, coltype);
+
         }
 
-        public DataTable ExecuteDataTable(string query)
+        protected string InsertTestDataSQL(string data)
         {
-            SqlCommand cmd = CreateTextCommand(query);
-            return base.ExecuteDataTable(cmd);
+            return
+                string.Format(
+                    "Insert into {0}  values ({1})",
+                    unitTestTableName, data);
         }
 
-        public DataTable ExecuteDataTable(string query, PagingRequest pq)
+        protected string SelectTestDataSQL()
         {
-            SqlCommand cmd = CreateTextCommand(query);
-            return base.ExecuteDataTable(cmd, pq);
+            return
+                string.Format("Select col from {0} /*##FILTER##*/", unitTestTableName);
+        }
+
+        protected string SelectTestDataSQL( string where)
+        {
+            return
+                string.Format("Select col from {0} {1}", unitTestTableName, where);
         }
 
 
-        public DataRow ExecuteDataRow(string query)
-        {
-            SqlCommand cmd = CreateTextCommand(query);
-            return base.ExecuteDataRow(cmd);
-        }
-
+        // This is a backdoor used for unit testing to setup and teardown test data in the local sql server
+        //  this is a helper function and bypasses all the security features around the block.
         public void ExecuteNonQuery(string query)
         {
             SqlCommand cmd = CreateTextCommand(query);
-            base.ExecuteNonQuery(cmd); 
+            ExecuteNonQuery(cmd); 
         }
-
-        //  This is done for unit testing to expose all the protected methods as public
-        public new SqlCommand CreateTextCommand(string query)
-        {
-            return base.CreateTextCommand(query);
-        }
-
-        public DataTable ExecuteDataTable(SqlCommand cmd )
-        {
-            return base.ExecuteDataTable(cmd);
-        }
-
     }
 }

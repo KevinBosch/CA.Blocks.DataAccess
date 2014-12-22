@@ -363,6 +363,14 @@
             <code outlining="true" source="..\CANC\Blocks\DataAccess\SqlServerDataAccess.cs" lang="cs"/> 
             </remarks>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CA.Blocks.DataAccess.SqlServerDataAccess.GetDBType(System.Type)" -->
+        <member name="M:CA.Blocks.DataAccess.SqlServerDataAccess.GetDBType(System.Type)">
+            <summary>
+            This is usefull when you dont know the sql datatype but you do know the physical type example is datatable
+            DataColumn dc = ??
+             AddInputParamCommand(cmd, dc.ColumnName, dr[dc], GetDBType(dc.DataType), dc.MaxLength);
+            </summary>
+            <param name="theType"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -56,6 +56,21 @@
   <ItemGroup>
     <Compile Include="Base\UnitTestDataAccess.cs" />
     <Compile Include="SqlParameterExtensionsTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeByteTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeNCharTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeNTextTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeShortTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeIntTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeDateTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeDateTime2Tests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeSmallDateTimeTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeDateTimeTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeCharTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeBitTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeBigIntTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeNVarCharTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeVarCharTests.cs" />
+    <Compile Include="SQLServer\DbTypeTests\DbTypeVarBinaryTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessPagingTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessContextTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessExecuteObjectListTests.cs" />
