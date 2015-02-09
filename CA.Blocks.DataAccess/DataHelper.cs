@@ -22,19 +22,24 @@ namespace CA.Blocks.DataAccess
     /// </summary>
     public static class DataHelper
     {
-
-        [DebuggerStepThrough]
-        private static ArgumentNullException NullException(string sColumnName, string typeDescription)
-        {
-            return new ArgumentNullException(
-                                string.Format("Tried to get {0} from row as non-nullable {1}, however value is NULL.", sColumnName,
-                                              typeDescription));
-        }
-
         private static void ThrowExceptionIfIsNull(object obj, string sColumnName, string typeDescription)
         {
             if (obj == null || obj == DBNull.Value)
-                throw NullException(sColumnName, typeDescription);
+            {
+                throw new ArgumentNullException(
+                           string.Format("Tried to get {0} from row as non-nullable {1}, however value is NULL.", sColumnName,
+                                         typeDescription));
+            }
+        }
+
+        private static void ThrowExceptionIfIsNull(object obj, int columnIndex, string typeDescription)
+        {
+            if (obj == null || obj == DBNull.Value)
+            {
+                throw new ArgumentNullException(
+                           string.Format("Tried to get col in position {0} from row as non-nullable {1}, however value is NULL.", columnIndex,
+                                         typeDescription));
+            }
         }
 
         /// <summary>
@@ -68,12 +73,12 @@ namespace CA.Blocks.DataAccess
         /// null in the DataRow.
         /// </summary>
         /// <param name="dr"> A Valid <see cref="System.Data.DataRow"/> DataRow</param>
-        /// <param name="columnOrder">The order of the Column that belongs to the DataTable</param>
+        /// <param name="columnIndex">The index of the Column that belongs to the DataTable</param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static object GetValueFromRow(DataRow dr, int columnOrder)
+        public static object GetValueFromRow(DataRow dr, int columnIndex)
         {
-            return !dr.IsNull(columnOrder) ? dr[columnOrder] : null;
+            return !dr.IsNull(columnIndex) ? dr[columnIndex] : null;
         }
 
         /// <summary>
@@ -85,7 +90,7 @@ namespace CA.Blocks.DataAccess
         /// <param name="returnNullAsEmptyString">Sets the attribute on how an empty string will be treated, it true it will return string.empty else it will return null. </param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static string GetValueFromRowAsString(DataRow dr, string sColumnName, bool returnNullAsEmptyString)
+        public static string GetValueFromRowAsString(DataRow dr, string sColumnName, bool returnNullAsEmptyString = false)
         {
             object result = GetValueFromRow(dr, sColumnName);
             if (result == null && returnNullAsEmptyString)
@@ -103,27 +108,22 @@ namespace CA.Blocks.DataAccess
         /// <param name="returnNullAsEmptyString">Sets the attribute on how an empty string will be treated, it true it will return string.empty else it will return null. </param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static string GetValueFromRowAsString(DataRow dr, int columnOrder, bool returnNullAsEmptyString)
+        public static string GetValueFromRowAsString(DataRow dr, int columnOrder, bool returnNullAsEmptyString = false)
         {
             object result = GetValueFromRow(dr, columnOrder);
-            if (result == null)
-            {
-                if (returnNullAsEmptyString)
-                    result = string.Empty;
-            }
+            if (result == null && returnNullAsEmptyString)
+                result = string.Empty;
             return (string)result;
         }
 
-        /// <summary>
-        /// calls GetValueFromRowAsString with the given DataRow and ColumnName and used the default value of false for ReturnNullAsEmptyString
-        /// </summary>
-        /// <param name="dr">A Valid <see cref="System.Data.DataRow"/> DataRow</param>
-        /// <param name="sColumnName">The Name of the Column in the DataRow </param>
-        /// <returns></returns>
+
         [DebuggerStepThrough]
-        public static string GetValueFromRowAsString(DataRow dr, string sColumnName)
+        public static string GetValueFromRowAsString(DataRow dr, DataColumn column, bool returnNullAsEmptyString = false)
         {
-            return GetValueFromRowAsString(dr, sColumnName, false);
+            object result = GetValueFromRow(dr, column);
+            if (result == null && returnNullAsEmptyString)
+                result = string.Empty;
+            return (string)result;
         }
 
 
@@ -154,6 +154,12 @@ namespace CA.Blocks.DataAccess
             return ((int?)GetValueFromRow(dr, column));
         }
 
+        [DebuggerStepThrough]
+        public static int? GetValueFromRowAsNullInt(DataRow dr, int columnOrder)
+        {
+            return ((int?)GetValueFromRow(dr, columnOrder));
+        }
+
         /// <summary>
         /// Will get the data value from the row as an int. If the value is null an <see cref="ArgumentNullException"/> will be thrown
         /// This procedure assumes that the data is an integer, if not a cast exception will be thrown.  
@@ -182,6 +188,14 @@ namespace CA.Blocks.DataAccess
         {
             int? val = GetValueFromRowAsNullInt(dr, column);
             ThrowExceptionIfIsNull(val, column.ColumnName, "int");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static int GetValueFromRowAsInt(DataRow dr, int columnIndex)
+        {
+            int? val = GetValueFromRowAsNullInt(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "int");
             return val.Value;
         }
 
@@ -313,6 +327,20 @@ namespace CA.Blocks.DataAccess
             return val.Value;
         }
 
+        public static bool GetValueFromRowAsBool(DataRow dr, int columnIndex)
+        {
+            bool? val = GetValueFromRowAsNullBool(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "bool");
+            return val.Value;
+        }
+
+        public static bool GetValueFromRowAsBool(DataRow dr, DataColumn dc)
+        {
+            bool? val = GetValueFromRowAsNullBool(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "bool");
+            return val.Value;
+        }
+
 
         /// <summary>
         /// Will get a the data value from the data row as a bool. If a DB Null is found then it will return the default bool value defined in DefaultReturnValueIfNull
@@ -331,6 +359,17 @@ namespace CA.Blocks.DataAccess
         {
             return (bool?)GetValueFromRow(dr, sColumnName);
         }
+
+        public static bool? GetValueFromRowAsNullBool(DataRow dr, int columnIndex)
+        {
+            return (bool?)GetValueFromRow(dr, columnIndex);
+        }
+
+        public static bool? GetValueFromRowAsNullBool(DataRow dr, DataColumn dc)
+        {
+            return (bool?)GetValueFromRow(dr, dc);
+        }
+
 
         /// <summary>
         /// Will get the data value from the row as a nullable short. The return value will be set to either null or the short value
@@ -524,6 +563,18 @@ namespace CA.Blocks.DataAccess
         public static byte[] GetValueFromRowAsBinary(DataRow dr, string sColumnName)
         {
             return (byte[])GetValueFromRow(dr, sColumnName);
+        }
+
+        [DebuggerStepThrough]
+        public static byte[] GetValueFromRowAsBinary(DataRow dr, int columnIndex)
+        {
+            return (byte[])GetValueFromRow(dr, columnIndex);
+        }
+
+        [DebuggerStepThrough]
+        public static byte[] GetValueFromRowAsBinary(DataRow dr, DataColumn dc)
+        {
+            return (byte[])GetValueFromRow(dr, dc);
         }
 
 

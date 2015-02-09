@@ -103,6 +103,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataHelper.cs" />
+    <Compile Include="DataRowExtensions.cs" />
     <Compile Include="OledbDataAccess.cs">
       <SubType>Code</SubType>
     </Compile>

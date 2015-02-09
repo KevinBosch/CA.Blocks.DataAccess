@@ -86,7 +86,7 @@
             null in the DataRow.
             </summary>
             <param name="dr"> A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
-            <param name="columnOrder">The order of the Column that belongs to the DataTable</param>
+            <param name="columnIndex">The index of the Column that belongs to the DataTable</param>
             <returns></returns>
         </member>
         <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsString(System.Data.DataRow,System.String,System.Boolean)">
@@ -107,14 +107,6 @@
             <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
             <param name="columnOrder"> The order of the Column in the DataRow </param>
             <param name="returnNullAsEmptyString">Sets the attribute on how an empty string will be treated, it true it will return string.empty else it will return null. </param>
-            <returns></returns>
-        </member>
-        <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsString(System.Data.DataRow,System.String)">
-            <summary>
-            calls GetValueFromRowAsString with the given DataRow and ColumnName and used the default value of false for ReturnNullAsEmptyString
-            </summary>
-            <param name="dr">A Valid <see cref="T:System.Data.DataRow"/> DataRow</param>
-            <param name="sColumnName">The Name of the Column in the DataRow </param>
             <returns></returns>
         </member>
         <member name="M:CA.Blocks.DataAccess.DataHelper.GetValueFromRowAsNullInt(System.Data.DataRow,System.String)">
