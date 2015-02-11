@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace CA.Blocks.DataAccess
 {
@@ -60,27 +61,204 @@ namespace CA.Blocks.DataAccess
         #endregion
 
         #region Byte
-        //TODO 
+
+        public static byte AsByte(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsByte(dr, colName);
+        }
+
+        public static byte AsByte(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsByte(dr, columnIndex);
+        }
+
+        public static byte AsByte(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsByte(dr, column);
+        }
+        // Nulls
+        public static byte? AsNullByte(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullByte(dr, colName);
+        }
+
+        public static byte? AsNullByte(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullByte(dr, columnIndex);
+        }
+
+        public static byte? AsNullByte(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullByte(dr, column);
+        }
+
         #endregion
 
         #region Char
-        //TODO 
+
+        public static char AsChar(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsChar(dr, colName);
+        }
+
+        public static char AsChar(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsChar(dr, columnIndex);
+        }
+
+        public static char AsChar(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsChar(dr, column);
+        }
+        // Nulls
+        public static char? AsNullChar(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullChar(dr, colName);
+        }
+
+        public static char? AsNullChar(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullChar(dr, columnIndex);
+        }
+
+        public static char? AsNullChar(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullChar(dr, column);
+        }
+
         #endregion
 
         #region DateTime
-        //TODO 
+        public static DateTime AsDateTime(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsDateTime(dr, colName);
+        }
+
+        public static DateTime AsDateTime(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsDateTime(dr, columnIndex);
+        }
+
+        public static DateTime AsDateTime(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsDateTime(dr, column);
+        }
+        // Nulls
+        public static DateTime? AsNullDateTime(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullDateTime(dr, colName);
+        }
+
+        public static DateTime? AsNullDateTime(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullDateTime(dr, columnIndex);
+        }
+
+        public static DateTime? AsNullDateTime(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullDateTime(dr, column);
+        }
+
         #endregion
 
         #region Double
-        //TODO 
+        public static double AsDouble(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsDouble(dr, colName);
+        }
+
+        public static double AsDouble(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsDouble(dr, columnIndex);
+        }
+
+        public static double AsDouble(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsDouble(dr, column);
+        }
+        // Nulls
+        public static double? AsNullDouble(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullDouble(dr, colName);
+        }
+
+        public static double? AsNullDouble(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullDouble(dr, columnIndex);
+        }
+
+        public static double? AsNullDouble(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullDouble(dr, column);
+        }
         #endregion
 
         #region Decimal
-        //TODO 
+
+        public static decimal AsDecimal(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsDecimal(dr, colName);
+        }
+
+        public static decimal AsDecimal(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsDecimal(dr, columnIndex);
+        }
+
+        public static decimal AsDecimal(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsDecimal(dr, column);
+        }
+        // Nulls
+        public static decimal? AsNullDecimal(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullDecimal(dr, colName);
+        }
+
+        public static decimal? AsNullDecimal(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullDecimal(dr, columnIndex);
+        }
+
+        public static decimal? AsNullDecimal(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullDecimal(dr, column);
+        }
+
         #endregion
 
         #region Guid
-        //TODO 
+
+        public static Guid AsGuid(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsGuid(dr, colName);
+        }
+
+        public static Guid AsGuid(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsGuid(dr, columnIndex);
+        }
+
+        public static Guid AsGuid(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsGuid(dr, column);
+        }
+        // Nulls
+        public static Guid? AsNullGuid(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullGuid(dr, colName);
+        }
+
+        public static Guid? AsNullGuid(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullGuid(dr, columnIndex);
+        }
+
+        public static Guid? AsNullGuid(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullGuid(dr, column);
+        }
+
         #endregion
 
         #region Int
@@ -115,23 +293,115 @@ namespace CA.Blocks.DataAccess
         }
         #endregion 
 
-        #region long
-        //TODO 
+        #region Long
+  
+        public static long AsLong(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsLong(dr, colName);
+        }
+
+        public static long AsLong(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsLong(dr, columnIndex);
+        }
+
+        public static long AsLong(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsLong(dr, column);
+        }
+        // Nulls
+        public static long? AsNullLong(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullLong(dr, colName);
+        }
+
+        public static long? AsNullLong(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullLong(dr, columnIndex);
+        }
+
+        public static long? AsNullLong(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullLong(dr, column);
+        }
         #endregion
 
-        #region RowVersion
-        //TODO 
+        #region RowVersion / ulong
+
+        public static ulong AsULong(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsRowVersion(dr, colName);
+        }
+
+        public static ulong AsULong(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsRowVersion(dr, columnIndex);
+        }
+
+        public static ulong AsULong(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsRowVersion(dr, column);
+        }
+        // Nulls dont make sense for RowVersion
+
         #endregion
 
         #region Sbyte
-        //TODO 
+
+
+        public static sbyte AsSbyte(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsSbyte(dr, colName);
+        }
+
+        public static sbyte AsSbyte(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsSbyte(dr, columnIndex);
+        }
+
+        public static sbyte AsSbyte(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsSbyte(dr, column);
+        }
+        // Nulls do not make sense i think
+
+
         #endregion
 
         #region Short
-        //TODO 
+
+        public static short AsShort(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsShort(dr, colName);
+        }
+
+        public static short AsShort(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsShort(dr, columnIndex);
+        }
+
+        public static short AsShort(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsShort(dr, column);
+        }
+        // Nulls
+        public static short? AsNullShort(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullShort(dr, colName);
+        }
+
+        public static short? AsNullShort(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullShort(dr, columnIndex);
+        }
+
+        public static short? AsNullShort(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullShort(dr, column);
+        }
         #endregion
 
-        #region string
+        #region String
         public static string AsString(this DataRow dr, string colName, bool returnNullAsEmptyString = false)
         {
             return DataHelper.GetValueFromRowAsString(dr, colName, returnNullAsEmptyString);
@@ -147,7 +417,36 @@ namespace CA.Blocks.DataAccess
         #endregion 
 
         #region TimeSpan
-        //TODO 
+
+        public static TimeSpan AsTimeSpan(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsTimeSpan(dr, colName);
+        }
+
+        public static TimeSpan AsTimeSpan(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsTimeSpan(dr, columnIndex);
+        }
+
+        public static TimeSpan AsTimeSpan(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsTimeSpan(dr, column);
+        }
+        // Nulls
+        public static TimeSpan? AsNullTimeSpan(this DataRow dr, string colName)
+        {
+            return DataHelper.GetValueFromRowAsNullTimeSpan(dr, colName);
+        }
+
+        public static TimeSpan? AsNullTimeSpan(this DataRow dr, int columnIndex)
+        {
+            return DataHelper.GetValueFromRowAsNullTimeSpan(dr, columnIndex);
+        }
+
+        public static TimeSpan? AsNullTimeSpan(this DataRow dr, DataColumn column)
+        {
+            return DataHelper.GetValueFromRowAsNullTimeSpan(dr, column);
+        }
         #endregion
 
 

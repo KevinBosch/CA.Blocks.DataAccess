@@ -213,6 +213,18 @@ namespace CA.Blocks.DataAccess
             return ((Decimal?)GetValueFromRow(dr, sColumnName));
         }
 
+        [DebuggerStepThrough]
+        public static Decimal? GetValueFromRowAsNullDecimal(DataRow dr, int columnIndex)
+        {
+            return ((Decimal?)GetValueFromRow(dr, columnIndex));
+        }
+
+        [DebuggerStepThrough]
+        public static Decimal? GetValueFromRowAsNullDecimal(DataRow dr, DataColumn dc)
+        {
+            return ((Decimal?)GetValueFromRow(dr, dc));
+        }
+
         /// <summary>
         /// Will get the data value from the row as an Decimal. If the value is null an <see cref="ArgumentNullException"/> will be thrown
         /// This procedure assumes that the data is an Decimaleger, if not a cast exception will be thrown.  
@@ -228,6 +240,22 @@ namespace CA.Blocks.DataAccess
             return val.Value;
         }
 
+        [DebuggerStepThrough]
+        public static Decimal GetValueFromRowAsDecimal(DataRow dr, int columnIndex)
+        {
+            Decimal? val = GetValueFromRowAsNullDecimal(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "Decimal");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static Decimal GetValueFromRowAsDecimal(DataRow dr, DataColumn dc)
+        {
+            Decimal? val = GetValueFromRowAsNullDecimal(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "Decimal");
+            return val.Value;
+        }
+
         /// <summary>
         /// Will get the data value from the row as a nullable Double. The return value will be set to either null or the Double value
         /// This procedure assumes that the data is an Double, if not a cast exception will be thrown.  
@@ -239,6 +267,18 @@ namespace CA.Blocks.DataAccess
         public static Double? GetValueFromRowAsNullDouble(DataRow dr, string sColumnName)
         {
             return ((Double?)GetValueFromRow(dr, sColumnName));
+        }
+
+        [DebuggerStepThrough]
+        public static Double? GetValueFromRowAsNullDouble(DataRow dr, int columnIndex)
+        {
+            return ((Double?)GetValueFromRow(dr, columnIndex));
+        }
+
+        [DebuggerStepThrough]
+        public static Double? GetValueFromRowAsNullDouble(DataRow dr, DataColumn dc)
+        {
+            return ((Double?)GetValueFromRow(dr, dc));
         }
 
         /// <summary>
@@ -256,6 +296,22 @@ namespace CA.Blocks.DataAccess
             return val.Value;
         }
 
+        [DebuggerStepThrough]
+        public static Double GetValueFromRowAsDouble(DataRow dr, int columnIndex)
+        {
+            Double? val = GetValueFromRowAsNullDouble(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "Double");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static Double GetValueFromRowAsDouble(DataRow dr, DataColumn dc)
+        {
+            Double? val = GetValueFromRowAsNullDouble(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "Double");
+            return val.Value;
+        }
+
 
         /// <summary>
         /// Will get the data value from the row as a nullable long. The return value will be set to either null or the long value
@@ -268,6 +324,12 @@ namespace CA.Blocks.DataAccess
         public static long? GetValueFromRowAsNullLong(DataRow dr, string sColumnName)
         {
             return ((long?)GetValueFromRow(dr, sColumnName));
+        }
+
+        [DebuggerStepThrough]
+        public static long? GetValueFromRowAsNullLong(DataRow dr, int columnIndex)
+        {
+            return ((long?)GetValueFromRow(dr, columnIndex));
         }
 
         /// <summary>
@@ -295,6 +357,14 @@ namespace CA.Blocks.DataAccess
         {
             long? val = GetValueFromRowAsNullLong(dr, sColumnName);
             ThrowExceptionIfIsNull(val, sColumnName, "long");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static long GetValueFromRowAsLong(DataRow dr, int columnIndex)
+        {
+            long? val = GetValueFromRowAsNullLong(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "long");
             return val.Value;
         }
 
@@ -384,6 +454,18 @@ namespace CA.Blocks.DataAccess
             return (short?)GetValueFromRow(dr, sColumnName);
         }
 
+        [DebuggerStepThrough]
+        public static short? GetValueFromRowAsNullShort(DataRow dr, int columnIndex)
+        {
+            return (short?)GetValueFromRow(dr, columnIndex);
+        }
+
+        [DebuggerStepThrough]
+        public static short? GetValueFromRowAsNullShort(DataRow dr, DataColumn dc)
+        {
+            return (short?)GetValueFromRow(dr, dc);
+        }
+
         /// <summary>
         /// Will get the data value from the row as an short. If the value is null an <see cref="ArgumentNullException"/> will be thrown
         /// This procedure assumes that the data is an short, if not a cast exception will be thrown.  
@@ -396,6 +478,22 @@ namespace CA.Blocks.DataAccess
         {
             short? val = GetValueFromRowAsNullShort(dr, sColumnName);
             ThrowExceptionIfIsNull(val, sColumnName, "short");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static short GetValueFromRowAsShort(DataRow dr, int columnIndex)
+        {
+            short? val = GetValueFromRowAsNullShort(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "short");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static short GetValueFromRowAsShort(DataRow dr, DataColumn dc)
+        {
+            short? val = GetValueFromRowAsNullShort(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "short");
             return val.Value;
         }
 
@@ -413,6 +511,18 @@ namespace CA.Blocks.DataAccess
             return (sbyte?)(GetValueFromRow(dr, sColumnName));
         }
 
+        [DebuggerStepThrough]
+        public static sbyte? GetValueFromRowAsNullSbyte(DataRow dr, int columnIndex)
+        {
+            return (sbyte?)(GetValueFromRow(dr, columnIndex));
+        }
+
+        [DebuggerStepThrough]
+        public static sbyte? GetValueFromRowAsNullSbyte(DataRow dr, DataColumn dc)
+        {
+            return (sbyte?)(GetValueFromRow(dr, dc));
+        }
+
         /// <summary>
         /// Will get the data value from the row as an sbyte. If the value is null an <see cref="ArgumentNullException"/> will be thrown
         /// This procedure assumes that the data is an sbyte, if not a cast exception will be thrown.  
@@ -424,7 +534,23 @@ namespace CA.Blocks.DataAccess
         public static sbyte GetValueFromRowAsSbyte(DataRow dr, string sColumnName)
         {
             sbyte? val = GetValueFromRowAsNullSbyte(dr, sColumnName);
-            ThrowExceptionIfIsNull(val, sColumnName, "short");
+            ThrowExceptionIfIsNull(val, sColumnName, "sbyte");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static sbyte GetValueFromRowAsSbyte(DataRow dr, int columnIndex)
+        {
+            sbyte? val = GetValueFromRowAsNullSbyte(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "sbyte");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static sbyte GetValueFromRowAsSbyte(DataRow dr, DataColumn dc)
+        {
+            sbyte? val = GetValueFromRowAsNullSbyte(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "sbyte");
             return val.Value;
         }
 
@@ -439,6 +565,18 @@ namespace CA.Blocks.DataAccess
         public static byte? GetValueFromRowAsNullByte(DataRow dr, string sColumnName)
         {
             return (byte?)(GetValueFromRow(dr, sColumnName));
+        }
+
+        [DebuggerStepThrough]
+        public static byte? GetValueFromRowAsNullByte(DataRow dr, int columnIndex)
+        {
+            return (byte?)(GetValueFromRow(dr, columnIndex));
+        }
+
+        [DebuggerStepThrough]
+        public static byte? GetValueFromRowAsNullByte(DataRow dr, DataColumn dc)
+        {
+            return (byte?)(GetValueFromRow(dr, dc));
         }
 
         /// <summary>
@@ -456,6 +594,22 @@ namespace CA.Blocks.DataAccess
             return val.Value;
         }
 
+        [DebuggerStepThrough]
+        public static byte GetValueFromRowAsByte(DataRow dr, int columnIndex)
+        {
+            byte? val = GetValueFromRowAsNullByte(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "byte");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static byte GetValueFromRowAsByte(DataRow dr, DataColumn dc)
+        {
+            byte? val = GetValueFromRowAsNullByte(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "byte");
+            return val.Value;
+        }
+
         /// <summary>
         /// Will get the data value from the row as a nullable short. The return value will be set to either null or the short value
         /// This procedure assumes that the data is a short, if not a cast exception will be thrown.  
@@ -467,6 +621,18 @@ namespace CA.Blocks.DataAccess
         public static DateTime? GetValueFromRowAsNullDateTime(DataRow dr, string sColumnName)
         {
             return (DateTime?)(GetValueFromRow(dr, sColumnName));
+        }
+
+        [DebuggerStepThrough]
+        public static DateTime? GetValueFromRowAsNullDateTime(DataRow dr, int columnIndex)
+        {
+            return (DateTime?)(GetValueFromRow(dr, columnIndex));
+        }
+
+        [DebuggerStepThrough]
+        public static DateTime? GetValueFromRowAsNullDateTime(DataRow dr, DataColumn dc)
+        {
+            return (DateTime?)(GetValueFromRow(dr, dc));
         }
 
         /// <summary>
@@ -484,6 +650,21 @@ namespace CA.Blocks.DataAccess
             return val.Value;
         }
 
+        [DebuggerStepThrough]
+        public static DateTime GetValueFromRowAsDateTime(DataRow dr, int columnIndex)
+        {
+            DateTime? val = GetValueFromRowAsNullDateTime(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "DateTime");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static DateTime GetValueFromRowAsDateTime(DataRow dr, DataColumn dc)
+        {
+            DateTime? val = GetValueFromRowAsNullDateTime(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "DateTime");
+            return val.Value;
+        }
 
 
         public static TimeSpan? GetValueFromRowAsNullTimeSpan(DataRow dr, string sColumnName)
@@ -491,10 +672,34 @@ namespace CA.Blocks.DataAccess
             return (TimeSpan?)(GetValueFromRow(dr, sColumnName));
         }
 
+        public static TimeSpan? GetValueFromRowAsNullTimeSpan(DataRow dr, int columnIndex)
+        {
+            return (TimeSpan?)(GetValueFromRow(dr, columnIndex));
+        }
+
+        public static TimeSpan? GetValueFromRowAsNullTimeSpan(DataRow dr, DataColumn dc)
+        {
+            return (TimeSpan?)(GetValueFromRow(dr, dc));
+        }
+
         public static TimeSpan GetValueFromRowAsTimeSpan(DataRow dr, string sColumnName)
         {
             TimeSpan? val = GetValueFromRowAsNullTimeSpan(dr, sColumnName);
             ThrowExceptionIfIsNull(val, sColumnName, "TimeSpan");
+            return val.Value;
+        }
+
+        public static TimeSpan GetValueFromRowAsTimeSpan(DataRow dr, int columnIndex)
+        {
+            TimeSpan? val = GetValueFromRowAsNullTimeSpan(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "TimeSpan");
+            return val.Value;
+        }
+
+        public static TimeSpan GetValueFromRowAsTimeSpan(DataRow dr, DataColumn dc)
+        {
+            TimeSpan? val = GetValueFromRowAsNullTimeSpan(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "TimeSpan");
             return val.Value;
         }
 
@@ -516,6 +721,23 @@ namespace CA.Blocks.DataAccess
             return val.Value;
         }
 
+        [DebuggerStepThrough]
+        public static Guid GetValueFromRowAsGuid(DataRow dr, int columnIndex)
+        {
+            Guid? val = GetValueFromRowAsNullGuid(dr, columnIndex);
+            ThrowExceptionIfIsNull(val, columnIndex, "Guid");
+            return val.Value;
+        }
+
+        [DebuggerStepThrough]
+        public static Guid GetValueFromRowAsGuid(DataRow dr, DataColumn dc)
+        {
+            Guid? val = GetValueFromRowAsNullGuid(dr, dc);
+            ThrowExceptionIfIsNull(val, dc.ColumnName, "Guid");
+            return val.Value;
+        }
+
+
         /// <summary>
         /// Will get the data value from the row as a nullable Guid. The return value will be set to either null or the Guid value
         /// This procedure assumes that the data is a Guid, if not a cast exception will be thrown.  
@@ -530,14 +752,36 @@ namespace CA.Blocks.DataAccess
         }
 
         [DebuggerStepThrough]
+        public static Guid? GetValueFromRowAsNullGuid(DataRow dr, int columnIndex)
+        {
+            return ((Guid?)GetValueFromRow(dr, columnIndex));
+        }
+
+        [DebuggerStepThrough]
+        public static Guid? GetValueFromRowAsNullGuid(DataRow dr, DataColumn dc)
+        {
+            return ((Guid?)GetValueFromRow(dr, dc));
+        }
+
+        [DebuggerStepThrough]
         public static char GetValueFromRowAsChar(DataRow dr, string sColumnName)
         {
             object result = GetValueFromRow(dr, sColumnName);
-            if (result.ToString().Length > 0)
-                return ((string)result)[0];
-            else
-                return '\0';
+            return result.ToString().Length > 0 ? ((string)result)[0] : '\0';
+        }
 
+        [DebuggerStepThrough]
+        public static char GetValueFromRowAsChar(DataRow dr, int columnIndex)
+        {
+            object result = GetValueFromRow(dr, columnIndex);
+            return result.ToString().Length > 0 ? ((string)result)[0] : '\0';
+        }
+
+        [DebuggerStepThrough]
+        public static char GetValueFromRowAsChar(DataRow dr, DataColumn dc)
+        {
+            object result = GetValueFromRow(dr, dc);
+            return result.ToString().Length > 0 ? ((string)result)[0] : '\0';
         }
 
         [DebuggerStepThrough]
@@ -548,7 +792,26 @@ namespace CA.Blocks.DataAccess
                 return ((string)result)[0];
             else
                 return null;
+        }
 
+        [DebuggerStepThrough]
+        public static char? GetValueFromRowAsNullChar(DataRow dr, int columnIndex)
+        {
+            object result = GetValueFromRow(dr, columnIndex);
+            if (result != null && result.ToString().Length > 0)
+                return ((string)result)[0];
+            else
+                return null;
+        }
+
+        [DebuggerStepThrough]
+        public static char? GetValueFromRowAsNullChar(DataRow dr, DataColumn dc)
+        {
+            object result = GetValueFromRow(dr, dc);
+            if (result != null && result.ToString().Length > 0)
+                return ((string)result)[0];
+            else
+                return null;
         }
 
         [DebuggerStepThrough]
@@ -558,6 +821,19 @@ namespace CA.Blocks.DataAccess
             return BitConverter.ToUInt64(result, 0);
         }
 
+        [DebuggerStepThrough]
+        public static ulong GetValueFromRowAsRowVersion(DataRow dr, int columnIndex)
+        {
+            byte[] result = (byte[])DataHelper.GetValueFromRow(dr, columnIndex);
+            return BitConverter.ToUInt64(result, 0);
+        }
+
+        [DebuggerStepThrough]
+        public static ulong GetValueFromRowAsRowVersion(DataRow dr, DataColumn dc)
+        {
+            byte[] result = (byte[])DataHelper.GetValueFromRow(dr, dc);
+            return BitConverter.ToUInt64(result, 0);
+        }
 
         [DebuggerStepThrough]
         public static byte[] GetValueFromRowAsBinary(DataRow dr, string sColumnName)
