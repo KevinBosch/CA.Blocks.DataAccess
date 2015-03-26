@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 
 namespace CA.Blocks.DataAccess.Filter
@@ -29,12 +30,42 @@ namespace CA.Blocks.DataAccess.Filter
 
         protected void AddFilter(string filter)
         {
-            if (!String.IsNullOrWhiteSpace(filter))
+            if (_filter.Length > 0 )
             {
                 _filter.Append(string.Format(" {0} ", _condition));
             }
             _filter.Append(filter);
         }
+
+        protected void AddFilter(string filter, SqlParameter sqlparam)
+        {
+            AddFilter(filter);
+            AssignParameterValue(sqlparam);
+        }
+
+
+        protected void AssignParameterValue(SqlParameter sqlparam)
+        {
+            if (Parameters.All(x => x.ParameterName != sqlparam.ParameterName))
+            {
+                Parameters.Add(sqlparam);
+            }
+            else
+            {
+                var element = Parameters.FirstOrDefault(x => x.ParameterName == sqlparam.ParameterName);
+                if (element.DbType != sqlparam.DbType)
+                {
+                    throw new ApplicationException(
+                        string.Format("The Parameter {0} has been given two diffrent types {1} and {2}, this is not allowed within a single query", sqlparam.ParameterName, sqlparam.DbType, element.DbType));
+                }
+                if (!element.Value.Equals(sqlparam.Value))
+                {
+                    throw new ApplicationException(
+                        string.Format("The Parameter {0} has been given two diffrent values {1} and {2}, this is not allowed within a single query", sqlparam.ParameterName, sqlparam.Value, element.Value));
+                }
+            }
+        }
+
 
         public IList<SqlParameter> Parameters
         {

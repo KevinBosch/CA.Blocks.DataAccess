@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\UnitTestDataAccess.cs" />
+    <Compile Include="Filter\FilterUnitTestscs.cs" />
     <Compile Include="SqlParameterExtensionsTests.cs" />
     <Compile Include="SQLServer\DbTypeTests\DbTypeByteTests.cs" />
     <Compile Include="SQLServer\DbTypeTests\DbTypeNCharTests.cs" />
