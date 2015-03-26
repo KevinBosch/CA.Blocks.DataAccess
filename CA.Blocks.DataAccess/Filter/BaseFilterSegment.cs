@@ -75,9 +75,13 @@ namespace CA.Blocks.DataAccess.Filter
             }
         }
 
-        public string ToSQLFilter()
+        public string ToSQLFilter(bool includeWhere = false)
         {
-            return _filter.ToString();
+            if (includeWhere && _filter.Length > 0)
+                return string.Format("WHERE {0}", _filter.ToString());
+            else
+                return _filter.ToString();
+
         }
     }
 }

@@ -23,7 +23,7 @@ namespace CA.Blocks.DataAccessUnitTest.Filter
     public class FilterUnitTestscs
     {
         [Test]
-        public void basicTest()
+        public void BasicTest()
         {
             var target = new TestFilter();
             target.HasIntColFilter(123);
@@ -32,8 +32,18 @@ namespace CA.Blocks.DataAccessUnitTest.Filter
         }
 
         [Test]
+        public void BasicTestWithWhere()
+        {
+            var target = new TestFilter();
+            target.HasIntColFilter(123);
+            Assert.IsTrue(target.Parameters.Count == 1);
+            Assert.AreEqual("WHERE intCol = @value", target.ToSQLFilter(true));
+        }
+
+
+        [Test]
         [ExpectedException(typeof(System.ApplicationException))]
-        public void basicBadFilterDiffrentTypes()
+        public void BasicBadFilterDiffrentTypes()
         {
             var target = new TestFilter();
             target.HasIntColFilter(123);
@@ -52,7 +62,7 @@ namespace CA.Blocks.DataAccessUnitTest.Filter
         }
 
         [Test]
-        public void basicTestSillyAnd()
+        public void BasicTestSillyAnd()
         {
             var target = new TestFilter();
             target.HasIntColFilter(123);
