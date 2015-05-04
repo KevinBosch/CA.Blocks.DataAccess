@@ -352,7 +352,7 @@ namespace CA.Blocks.DataAccess
             }
         }
 
-        private static SqlParameter ToSqlParameterString(string input, string strParameterName, SpecificSQLStringType dbType)
+        private static SqlParameter ToSqlParameterString(string input, string strParameterName, SpecificSQLStringType dbType, bool useEmptyStringForNull)
         {
             var sqlparam = new SqlParameter(strParameterName, ToSqlDbType(dbType))
             {
@@ -362,14 +362,17 @@ namespace CA.Blocks.DataAccess
                 sqlparam.Value = input;
             else
             {
-                sqlparam.Value = DBNull.Value;
+                if (useEmptyStringForNull)
+                    sqlparam.Value = string.Empty;
+                else
+                    sqlparam.Value = DBNull.Value;   
             }
             return (sqlparam);
         }
 
-        public static SqlParameter ToSqlParameter(this string input, string strParameterName, SpecificSQLStringType dbType = SpecificSQLStringType.VarChar)
+        public static SqlParameter ToSqlParameter(this string input, string strParameterName, SpecificSQLStringType dbType = SpecificSQLStringType.VarChar, bool useEmptyStringForNull = false)
         {
-            return ToSqlParameterString(input, strParameterName, dbType);
+            return ToSqlParameterString(input, strParameterName, dbType, useEmptyStringForNull);
         }
 
         #endregion
