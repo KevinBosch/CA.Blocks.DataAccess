@@ -72,7 +72,7 @@ namespace CA.Blocks.DataAccess
 
         #region StoredProcedureHelpers
 
-        protected SqlCommand CreateBlankStoredProcedureCommand(string strStoredProcedureName, bool bolIncludeReturnValue)
+        protected SqlCommand CreateBlankStoredProcedureCommand(string strStoredProcedureName, bool bolIncludeReturnValue = false)
         {
             SqlCommand sqlcmd = new SqlCommand
                                                 {

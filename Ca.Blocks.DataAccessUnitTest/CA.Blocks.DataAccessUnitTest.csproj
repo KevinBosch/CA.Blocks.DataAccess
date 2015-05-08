@@ -72,6 +72,7 @@
     <Compile Include="SQLServer\DbTypeTests\DbTypeNVarCharTests.cs" />
     <Compile Include="SQLServer\DbTypeTests\DbTypeVarCharTests.cs" />
     <Compile Include="SQLServer\DbTypeTests\DbTypeVarBinaryTests.cs" />
+    <Compile Include="SQLServer\SqlServerDataAccessStoredProcedureTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessPagingTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessContextTests.cs" />
     <Compile Include="SQLServer\SqlServerDataAccessExecuteObjectListTests.cs" />
