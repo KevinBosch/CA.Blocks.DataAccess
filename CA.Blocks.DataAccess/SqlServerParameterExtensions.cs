@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 
@@ -13,6 +14,13 @@ namespace CA.Blocks.DataAccess
         DateTime, // The default
         DateTime2,
         SmallDateTime
+    }
+
+    public enum SpecificSQLDecimalType
+    {
+        Decimal,
+        Money, // The default
+        SmallMoney,
     }
 
     public enum SpecificSQLStringType
@@ -39,7 +47,7 @@ namespace CA.Blocks.DataAccess
             return cmd;
         }
 
-        #region SqlDbType.BigInt;
+        #region SqlDbType.BigInt ( long, Int64 ) 
         private static SqlParameter ToSqlParameterBigInt(long? input, string strParameterName)
         {
             var sqlparam = new SqlParameter(strParameterName, SqlDbType.BigInt)
@@ -87,7 +95,7 @@ namespace CA.Blocks.DataAccess
         #endregion
 
 
-        #region SqlDbType.Bit;
+        #region SqlDbType.Bit ( boolean ) 
         private static SqlParameter ToSqlParameterBool(bool? input, string strParameterName)
         {
             var sqlparam = new SqlParameter(strParameterName, SqlDbType.Bit)
@@ -115,7 +123,7 @@ namespace CA.Blocks.DataAccess
         #endregion
 
 
-        #region SqlDbType.Char;
+        #region SqlDbType.Char   (Char)
 
 
         private static SqlDbType ToSqlDbType(SpecificSQLCharType dbType)
@@ -151,7 +159,7 @@ namespace CA.Blocks.DataAccess
         #endregion
 
 
-        #region SqlDbType.DateTime;
+        #region SqlDbType.DateTime ( System.DateTime )
         private static SqlDbType ToSqlDbType(SpecificSQLDateTimeType dbType)
         {
             switch (dbType)
@@ -192,37 +200,106 @@ namespace CA.Blocks.DataAccess
             return (sqlparam);
         }
 
-        public static SqlParameter ToSqlParameter(this DateTime input, string strParameterName)
-        {
-            return ToSqlParameterDateTime(input, strParameterName, SpecificSQLDateTimeType.DateTime);
-        }
-
-        public static SqlParameter ToSqlParameter(this DateTime input, string strParameterName, SpecificSQLDateTimeType dbType)
+        public static SqlParameter ToSqlParameter(this DateTime input, string strParameterName, SpecificSQLDateTimeType dbType = SpecificSQLDateTimeType.DateTime)
         {
             return ToSqlParameterDateTime(input, strParameterName, dbType);
         }
 
         // Default to DateTime
-        public static SqlParameter ToSqlParameter(this DateTime? input, string strParameterName)
-        {
-            return ToSqlParameterDateTime(input, strParameterName, SpecificSQLDateTimeType.DateTime);
-        }
 
-        public static SqlParameter ToSqlParameter(this DateTime? input, string strParameterName, SpecificSQLDateTimeType dbType)
+        public static SqlParameter ToSqlParameter(this DateTime? input, string strParameterName, SpecificSQLDateTimeType dbType = SpecificSQLDateTimeType.DateTime)
         {
             return ToSqlParameterDateTime(input, strParameterName, dbType);
         }
         #endregion
 
-        
         /*TODO
         SqlDbType.DateTimeOffset;
+        */
+        #region SqlDbType.Decimal  (Decimal, Money, SmallMoney)
+
+        private static SqlDbType ToSqlDbType(SpecificSQLDecimalType dbType)
+        {
+            switch (dbType)
+            {
+                case SpecificSQLDecimalType.Decimal:
+                    {
+                        return SqlDbType.Decimal;
+                    }
+                case SpecificSQLDecimalType.Money:
+                    {
+                        return SqlDbType.Money;
+                    }
+                case SpecificSQLDecimalType.SmallMoney:
+                    {
+                        return SqlDbType.SmallMoney;
+                    }
+                default:
+                    return  SqlDbType.Decimal;
+            }
+        }
+
+        private static SqlParameter ToSqlParameterDecimal(Decimal? input, string strParameterName, SpecificSQLDecimalType dbType)
+        {
+            var sqlparam = new SqlParameter(strParameterName, ToSqlDbType(dbType))
+            {
+                Direction = ParameterDirection.Input
+            };
+            if (input.HasValue)
+                sqlparam.Value = input;
+            else
+            {
+                sqlparam.Value = DBNull.Value;
+            }
+            return (sqlparam);
+        }
+
+
+        public static SqlParameter ToSqlParameter(this Decimal input, string strParameterName, SpecificSQLDecimalType dbType = SpecificSQLDecimalType.Decimal)
+        {
+            return ToSqlParameterDecimal(input, strParameterName, dbType);
+        }
+
+        // Default is SpecificSQLDecimalType.Decimal
+        public static SqlParameter ToSqlParameter(this Decimal? input, string strParameterName, SpecificSQLDecimalType dbType = SpecificSQLDecimalType.Decimal)
+        {
+            return ToSqlParameterDecimal(input, strParameterName, dbType);
+        }
+
+        #endregion 
          
-        SqlDbType.Decimal;
-        SqlDbType.Float;
+        #region SqlDbType.Float  (System.Double)
+
+        private static SqlParameter ToSqlParameterDouble(Double? input, string strParameterName)
+        {
+            var sqlparam = new SqlParameter(strParameterName, SqlDbType.Float)
+            {
+                Direction = ParameterDirection.Input
+            };
+            if (input.HasValue)
+                sqlparam.Value = input;
+            else
+            {
+                sqlparam.Value = DBNull.Value;
+            }
+            return (sqlparam);
+        }
+
+        public static SqlParameter ToSqlParameter(this Double input, string strParameterName)
+        {
+            return ToSqlParameterDouble(input, strParameterName);
+        }
+
+        public static SqlParameter ToSqlParameter(this Double? input, string strParameterName)
+        {
+            return ToSqlParameterDouble(input, strParameterName);
+        }
+        #endregion
+
+        /*
         SqlDbType.Image;
         */
-        #region SqlDbType.Int;
+        #region SqlDbType.Int  ( int, Int32 )
 
         private static SqlParameter ToSqlParameterInt(int? input, string strParameterName)
         {
@@ -257,7 +334,7 @@ namespace CA.Blocks.DataAccess
         SqlDbType.SmallDateTime;*/
 
 
-        #region SqlDbType.SmallInt;
+        #region SqlDbType.SmallInt  -> ( short, Int16)
         private static SqlParameter ToSqlParameterInt16(Int16? input, string strParameterName)
         {
             var sqlparam = new SqlParameter(strParameterName, SqlDbType.SmallInt)
@@ -288,10 +365,40 @@ namespace CA.Blocks.DataAccess
         /*
         SqlDbType.SmallMoney;
         SqlDbType.Structured;
-        SqlDbType.Time;
+         */
+        #region SqlDbType.Time ( System.TimeSpan )
+
+        private static SqlParameter ToSqlParameterTimeSpan(TimeSpan? input, string strParameterName)
+        {
+            var sqlparam = new SqlParameter(strParameterName, SqlDbType.Time)
+            {
+                Direction = ParameterDirection.Input,
+            };
+            if (input.HasValue)
+                sqlparam.Value = input;
+            else
+            {
+                sqlparam.Value = DBNull.Value;
+            }
+            return (sqlparam);
+        }
+
+        public static SqlParameter ToSqlParameter(this TimeSpan input, string strParameterName)
+        {
+            return ToSqlParameterTimeSpan(input, strParameterName);
+        }
+
+        public static SqlParameter ToSqlParameter(this TimeSpan? input, string strParameterName)
+        {
+            return ToSqlParameterTimeSpan(input, strParameterName);
+        }
+
+        #endregion 
+
+        /*
         SqlDbType.Timestamp;*/
 
-        #region SqlDbType.TinyInt;
+        #region SqlDbType.TinyInt ( Byte ) 
         private static SqlParameter ToSqlParameterByte(byte? input, string strParameterName)
         {
             var sqlparam = new SqlParameter(strParameterName, SqlDbType.TinyInt)
@@ -321,7 +428,36 @@ namespace CA.Blocks.DataAccess
 
         /*
         SqlDbType.Udt;
-        SqlDbType.UniqueIdentifier;
+         */
+        #region SqlDbType.UniqueIdentifier ( System.Guid)
+        private static SqlParameter ToSqlParameterGuid(Guid? input, string strParameterName)
+        {
+            var sqlparam = new SqlParameter(strParameterName, SqlDbType.SmallInt)
+            {
+                Direction = ParameterDirection.Input,
+                Size = 16,
+            };
+            if (input.HasValue)
+                sqlparam.Value = input;
+            else
+            {
+                sqlparam.Value = DBNull.Value;
+            }
+            return (sqlparam);
+        }
+
+        public static SqlParameter ToSqlParameter(this Guid input, string strParameterName)
+        {
+            return ToSqlParameterGuid(input, strParameterName);
+        }
+
+        public static SqlParameter ToSqlParameter(this Guid? input, string strParameterName)
+        {
+            return ToSqlParameterGuid(input, strParameterName);
+        }
+        #endregion 
+
+        /*
         SqlDbType.VarBinary; // use Binary
         */
         

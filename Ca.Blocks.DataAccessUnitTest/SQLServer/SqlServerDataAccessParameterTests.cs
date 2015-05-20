@@ -22,7 +22,37 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer
 
         SqlDbType.DateTimeOffset;
         SqlDbType.Decimal;
+         */
+
+        #region SqlDbType.Float 
+
+        [Test]
+        public void QueryWithParameterDouble()
+        {
+            // Setup
+            double testNumber = 1.23;
+            var cmd = CreateTextCommand("Select * from [sys].[dm_db_missing_index_group_stats] where avg_total_user_cost > @testNumber");
+            // In the Query Above we have specified a @testid Now pass in the parameter
+            cmd.Parameters.Add(testNumber.ToSqlParameter("@testNumber"));
+
+            // act
+            var list = ExecuteObjectList(cmd);
+
+            //Assert
+            foreach (var item in list)
+            {
+                Assert.IsTrue(item.avg_total_user_cost > testNumber);
+            }
+        }
+
+
+
+        #endregion 
+
+        /*
         SqlDbType.Float;
+         */
+        /*
         SqlDbType.Image;
         */
 

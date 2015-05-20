@@ -50,7 +50,7 @@ namespace CA.Blocks.DataAccess
             if (!String.IsNullOrWhiteSpace(context))
             {
                 var cmd = CreateTextCommand("SET CONTEXT_INFO @AppContext");
-                AddInputParamCommandAsBinary(cmd, "@AppContext", Encoding.ASCII.GetBytes(context));
+                cmd.Parameters.Add(Encoding.ASCII.GetBytes(context).ToSqlParameter("@AppContext"));
                 cmd.Connection = sqlConnection;
                 cmd.ExecuteNonQuery();
             }
@@ -186,16 +186,19 @@ namespace CA.Blocks.DataAccess
             return (sqlparam);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsInt(SqlCommand cmd, string strParameterName, int? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Int, 4);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsShort(SqlCommand cmd, string strParameterName, short? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.SmallInt, 2);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsLong(SqlCommand cmd, string strParameterName, long? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.BigInt, 8);
@@ -206,97 +209,110 @@ namespace CA.Blocks.DataAccess
         //    return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Decimal, 38);
         //}
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsGuid(SqlCommand cmd, string strParameterName, Guid? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.UniqueIdentifier, 16);
         }
 
-
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsByte(SqlCommand cmd, string strParameterName, byte? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.TinyInt, 1);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsBinary(SqlCommand cmd, string strParameterName, byte[] objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.VarBinary, -1);
         }
 
-
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsBit(SqlCommand cmd, string strParameterName, bool objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Bit, 1);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsString(SqlCommand cmd, string strParameterName, string objParameterValue, int maxSize)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.VarChar, maxSize);
         }
 
-        // dont care about the size of the object this assumes the check as been done already else SQL will raise an error 
+        // dont care about the size of the object this assumes the check as been done already else SQL will raise an error
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsString(SqlCommand cmd, string strParameterName, string objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.VarChar, -1 );
         }
 
-
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsBool(SqlCommand cmd, string strParameterName, bool? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Bit, 1);
         }
-
+        [System.Obsolete("Do Conversion to Y ? N Outside then use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsCharBool(SqlCommand cmd, string strParameterName, bool objParameterValue)
         {
             char DBValue = objParameterValue ? 'Y' : 'N';
             return AddInputParamCommand(cmd, strParameterName, DBValue, SqlDbType.Char, 1);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsChar(SqlCommand cmd, string strParameterName, char? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Char, 1);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsDateTime(SqlCommand cmd, string strParameterName, DateTime? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.DateTime, 8);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsDateTime2(SqlCommand cmd, string strParameterName, DateTime? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.DateTime2, 8);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsSmallDateTime(SqlCommand cmd, string strParameterName, DateTime? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.SmallDateTime, 4);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsMoney(SqlCommand cmd, string strParameterName, Decimal? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Money, 0);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsDecimal(SqlCommand cmd, string strParameterName, Decimal? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Decimal, 0);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsFloat(SqlCommand cmd, string strParameterName, Double? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Float, 0);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsDouble(SqlCommand cmd, string strParameterName, Double? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Float, 0);
         }
 
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsTimeSpan(SqlCommand cmd, string strParameterName, TimeSpan? objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.Time, 0);
         }
 
-
+        [System.Obsolete("Please use the ToSqlParameter Extension Method")]
         protected SqlParameter AddInputParamCommandAsStringMax(SqlCommand cmd, string strParameterName, string objParameterValue)
         {
             return AddInputParamCommand(cmd, strParameterName, objParameterValue, SqlDbType.VarChar, int.MaxValue);
@@ -382,7 +398,7 @@ namespace CA.Blocks.DataAccess
                 {
                     p1.DbType = (DbType)tc.ConvertFrom(theType.Name);
                 }
-                catch (Exception ex)
+                catch
                 {
                     //Do Nothing
                 }
@@ -469,8 +485,8 @@ namespace CA.Blocks.DataAccess
             string sortOrder = page.GetOrderBy();
             string sqlSelect = string.Format(" ROW_NUMBER() Over (Order By {0}) As RowNumber, ", sortOrder);
             cmd.CommandText = WrapPagingQuery(cmd.CommandText, sqlSelect);
-            AddInputParamCommandAsInt(cmd, "@PagingRowNumberFrom", page.Skip + 1);
-            AddInputParamCommandAsInt(cmd, "@PagingRowNumberTo", page.Skip + page.Take);
+            cmd.Parameters.Add((page.Skip + 1).ToSqlParameter("@PagingRowNumberFrom"));
+            cmd.Parameters.Add((page.Skip + page.Take).ToSqlParameter("@PagingRowNumberTo"));
             return ExecuteDataTable(cmd);
         }
 
