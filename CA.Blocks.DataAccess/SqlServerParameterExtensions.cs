@@ -432,7 +432,7 @@ namespace CA.Blocks.DataAccess
         #region SqlDbType.UniqueIdentifier ( System.Guid)
         private static SqlParameter ToSqlParameterGuid(Guid? input, string strParameterName)
         {
-            var sqlparam = new SqlParameter(strParameterName, SqlDbType.SmallInt)
+            var sqlparam = new SqlParameter(strParameterName, SqlDbType.UniqueIdentifier)
             {
                 Direction = ParameterDirection.Input,
                 Size = 16,
