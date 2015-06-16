@@ -222,24 +222,49 @@ namespace CA.Blocks.DataAccess
 			return rv;
 		}
 
-        protected int ExecuteScalarAsInt(IDbCommand cmd, int nullDefault)
+        protected string ExecuteScalarAsString(IDbCommand cmd, string nullDefault = null)
+        {
+            Object result = ExecuteScalar(cmd);
+            return result != null ? result.ToString() : nullDefault;
+        }
+
+        protected int ExecuteScalarAsInt(IDbCommand cmd, int nullDefault = 0)
         {
             Object result = ExecuteScalar(cmd);
             return result != null ? int.Parse(result.ToString()) : nullDefault;
         }
 
-        protected short ExecuteScalarAsShort(IDbCommand cmd, short nullDefault)
+        protected short ExecuteScalarAsShort(IDbCommand cmd, short nullDefault = 0)
         {
             Object result = ExecuteScalar(cmd);
             return result != null ? short.Parse(result.ToString()) : nullDefault;
         }
 
-		protected byte ExecuteScalarAsByte(IDbCommand cmd, byte nullDefault)
+		protected byte ExecuteScalarAsByte(IDbCommand cmd, byte nullDefault = 0)
 		{
 			Object result = ExecuteScalar(cmd);
 			return result != null ? byte.Parse(result.ToString()) : nullDefault;
 		}
-		#endregion ExecuteScalar
+
+        protected long ExecuteScalarAsLong(IDbCommand cmd, long nullDefault = 0)
+        {
+            Object result = ExecuteScalar(cmd);
+            return result != null ? long.Parse(result.ToString()) : nullDefault;
+        }
+
+        protected Guid ExecuteScalarAsGuid(IDbCommand cmd, Guid nullDefault)
+        {
+            Object result = ExecuteScalar(cmd);
+            return result != null ? Guid.Parse(result.ToString()) : nullDefault;
+        }
+
+	    protected Guid ExecuteScalarAsGuid(IDbCommand cmd)
+	    {
+	        return ExecuteScalarAsGuid(cmd, Guid.Empty);
+	    }
+
+
+	    #endregion ExecuteScalar
 
 		#region ExecuteReader
 		protected IDataReader ExecuteReader(IDbCommand cmd)
