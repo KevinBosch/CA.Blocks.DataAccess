@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>CA Blocks DataAccess</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/KevinBosch/CA.Blocks.DataAccess/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/KevinBosch/CA.Blocks.DataAccess</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple framework for accessing Database using ADO.NET</description>
+	<summary>Code Associate Data Access Block</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>CA.Blocks.DataAcess</tags>
+  </metadata>
+</package>

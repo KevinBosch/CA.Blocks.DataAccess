@@ -130,6 +130,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CA.Blocks.DataAccess.cd" />
+    <None Include="CA.Blocks.DataAccess.nuspec" />
+    <None Include="PrepNugetPackage.bat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CA.Blocks.DataAccess.png" />
