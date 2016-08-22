@@ -14,9 +14,9 @@ namespace CA.Blocks.DataAccess.Filter
 
     public abstract class BaseFilterSegment
     {
-        private BaseFilterSegmentCondition _condition;
-        StringBuilder _filter = new StringBuilder();
-        private IList<SqlParameter> _parameters = new List<SqlParameter>();
+        private readonly BaseFilterSegmentCondition _condition;
+        readonly StringBuilder _filter = new StringBuilder();
+        private readonly IList<SqlParameter> _parameters = new List<SqlParameter>();
 
         protected BaseFilterSegment()
         {

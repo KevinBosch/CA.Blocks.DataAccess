@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace CA.Blocks.DataAccess
 {
@@ -291,10 +293,24 @@ namespace CA.Blocks.DataAccess
         {
             return DataHelper.GetValueFromRowAsNullInt(dr, column);
         }
-        #endregion 
+
+        // As delimited List eg "1,2,3" will be a IList {1,2,3}
+        public static IList<int> AsIntList(this DataRow dr, string columnName, char delimiter = ',')
+        {
+            var result = new List<int>();
+            var s = dr.AsString(columnName);
+            if (!string.IsNullOrWhiteSpace(s))
+            {
+                var sarray = s.Split(delimiter);
+                result.AddRange(sarray.Select(int.Parse));
+            }
+            return result;
+        }
+
+        #endregion
 
         #region Long
-  
+
         public static long AsLong(this DataRow dr, string colName)
         {
             return DataHelper.GetValueFromRowAsLong(dr, colName);
@@ -323,6 +339,19 @@ namespace CA.Blocks.DataAccess
         public static long? AsNullLong(this DataRow dr, DataColumn column)
         {
             return DataHelper.GetValueFromRowAsNullLong(dr, column);
+        }
+
+        // AS List
+        public static IList<long> AsLongList(this DataRow dr, string columnName, char delimiter = ',')
+        {
+            var result = new List<long>();
+            var s = dr.AsString(columnName);
+            if (!string.IsNullOrWhiteSpace(s))
+            {
+                var sarray = s.Split(delimiter);
+                result.AddRange(sarray.Select(long.Parse));
+            }
+            return result;
         }
         #endregion
 
@@ -399,6 +428,19 @@ namespace CA.Blocks.DataAccess
         {
             return DataHelper.GetValueFromRowAsNullShort(dr, column);
         }
+        // AS list
+        public static IList<short> AsShortList(this DataRow dr, string columnName, char delimiter = ',')
+        {
+            var result = new List<short>();
+            var s = dr.AsString(columnName);
+            if (!string.IsNullOrWhiteSpace(s))
+            {
+                var sarray = s.Split(delimiter);
+                result.AddRange(sarray.Select(short.Parse));
+            }
+            return result;
+        }
+
         #endregion
 
         #region String
@@ -414,6 +456,20 @@ namespace CA.Blocks.DataAccess
         {
             return DataHelper.GetValueFromRowAsString(dr, column, returnNullAsEmptyString);
         }
+
+        // As list
+        public static IList<string> AsStringList(this DataRow dr, string columnName, char delimiter)
+        {
+            var result = new List<string>();
+            var s = dr.AsString(columnName);
+            if (!string.IsNullOrWhiteSpace(s))
+            {
+                var sarray = s.Split(delimiter);
+                result.AddRange(sarray);
+            }
+            return result;
+        }
+
         #endregion 
 
         #region TimeSpan
