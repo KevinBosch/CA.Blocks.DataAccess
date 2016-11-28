@@ -11,9 +11,9 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer.DbTypeTests
     {
         private const string  TEST_DATA = "varchar data";
 
-        private void InsertTestDataAsBinarySQL(string data)
+        private void InsertTestData(string data)
         {
-            ExecuteNonQuery(InsertTestDataSQL(string.Format("'{0}'", data)));
+            ExecuteNonQuery(InsertTestDataSQL($"'{data}'"));
         }
 
         [TestFixtureSetUp]
@@ -21,11 +21,11 @@ namespace CA.Blocks.DataAccessUnitTest.SQLServer.DbTypeTests
         {
             ExecuteNonQuery(DropTestTableSQL());
             ExecuteNonQuery(CreateTestTable("varchar(50) not null"));
-            InsertTestDataAsBinarySQL(TEST_DATA);
-            InsertTestDataAsBinarySQL(Guid.NewGuid().ToString());
-            InsertTestDataAsBinarySQL(Guid.NewGuid().ToString());
-            InsertTestDataAsBinarySQL(Guid.NewGuid().ToString());
-            InsertTestDataAsBinarySQL(Guid.NewGuid().ToString());
+            InsertTestData(TEST_DATA);
+            InsertTestData(Guid.NewGuid().ToString());
+            InsertTestData(Guid.NewGuid().ToString());
+            InsertTestData(Guid.NewGuid().ToString());
+            InsertTestData(Guid.NewGuid().ToString());
         }
 
         [TestFixtureTearDown]

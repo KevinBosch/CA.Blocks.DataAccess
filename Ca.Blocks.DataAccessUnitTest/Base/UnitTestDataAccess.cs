@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Management.Instrumentation;
 using System.Text;
 using CA.Blocks.DataAccess;
 
@@ -29,39 +26,28 @@ namespace CA.Blocks.DataAccessUnitTest.Base
 
         protected string DropTestTableSQL()
         {
-            return
-                string.Format(
-                    "if exists (select * from sysobjects where xtype = 'U' and id = object_id(N'{0}')) begin drop table {0} end",
-                    unitTestTableName);
+            return $"if exists (select * from sysobjects where xtype = 'U' and id = object_id(N'{unitTestTableName}')) begin drop table {unitTestTableName} end";
         }
 
         protected string CreateTestTable(string coltype)
         {
-            return
-                string.Format(
-                    "Create table {0} (id int identity(1,1), col {1} )",
-                    unitTestTableName, coltype);
+            return $"Create table {unitTestTableName} (id int identity(1,1), col {coltype} )";
 
         }
 
         protected string InsertTestDataSQL(string data)
         {
-            return
-                string.Format(
-                    "Insert into {0}  values ({1})",
-                    unitTestTableName, data);
+            return  $"Insert into {unitTestTableName}  values ({data})";
         }
 
         protected string SelectTestDataSQL()
         {
-            return
-                string.Format("Select col from {0} /*##FILTER##*/", unitTestTableName);
+            return $"Select col from {unitTestTableName} /*##FILTER##*/";
         }
 
         protected string SelectTestDataSQL( string where)
         {
-            return
-                string.Format("Select col from {0} {1}", unitTestTableName, where);
+            return $"Select col from {unitTestTableName} {@where}";
         }
 
 

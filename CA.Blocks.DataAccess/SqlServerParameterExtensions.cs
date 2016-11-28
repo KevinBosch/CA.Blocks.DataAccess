@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -488,27 +489,29 @@ namespace CA.Blocks.DataAccess
             }
         }
 
-        private static SqlParameter ToSqlParameterString(string input, string strParameterName, SpecificSQLStringType dbType, bool useEmptyStringForNull)
+        private static SqlParameter ToSqlParameterString(string input, string strParameterName, SpecificSQLStringType dbType, bool useEmptyStringForNull, int trimInputTo)
         {
             var sqlparam = new SqlParameter(strParameterName, ToSqlDbType(dbType))
             {
                 Direction = ParameterDirection.Input
             };
             if (input != null)
-                sqlparam.Value = input;
+            {
+                sqlparam.Value = trimInputTo > 0 ? input.Substring(0, trimInputTo) : input;
+            }
             else
             {
                 if (useEmptyStringForNull)
                     sqlparam.Value = string.Empty;
                 else
-                    sqlparam.Value = DBNull.Value;   
+                    sqlparam.Value = DBNull.Value;
             }
             return (sqlparam);
         }
 
-        public static SqlParameter ToSqlParameter(this string input, string strParameterName, SpecificSQLStringType dbType = SpecificSQLStringType.VarChar, bool useEmptyStringForNull = false)
+        public static SqlParameter ToSqlParameter(this string input, string strParameterName, SpecificSQLStringType dbType = SpecificSQLStringType.VarChar, bool useEmptyStringForNull = false, int trimInputTo = -1)
         {
-            return ToSqlParameterString(input, strParameterName, dbType, useEmptyStringForNull);
+            return ToSqlParameterString(input, strParameterName, dbType, useEmptyStringForNull, trimInputTo);
         }
 
         #endregion
